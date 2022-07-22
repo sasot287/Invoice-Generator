@@ -23,7 +23,7 @@ public class Invoice_data {
     private ArrayList<Items> Itl;
     private  double Invoice_total;
    
-    public Invoice_data(int num, String customer, LocalDate  dat) {
+    public Invoice_data(int num, LocalDate  dat,String customer) {
         this.Num = num;
         this.Customer = customer;
         this.Dat = dat;
@@ -72,7 +72,8 @@ public class Invoice_data {
     }
     @Override
     public String toString() {
-        return Num + ","+ Customer+"," +   Dat.format(DateTimeFormatter.ofPattern("dd-MM-YYYY"));
+     //   return Num + ","+ Customer+"," +   Dat.format(DateTimeFormatter.ofPattern("dd-MM-YYYY"));
+  return Num + "," + Dat.format(DateTimeFormatter.ofPattern("dd-MM-YYYY")) + ","+ Customer ;
     }
     
     

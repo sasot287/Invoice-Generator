@@ -8,6 +8,7 @@ import controller.invoice_controller;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import model.Invoice_Tablemodel;
 import model.Invoice_data;
 import model.Items;
@@ -47,16 +48,17 @@ public class invoice extends javax.swing.JFrame {
         cs = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        num = new javax.swing.JLabel();
-        cst = new javax.swing.JLabel();
-        date = new javax.swing.JLabel();
-        total = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         item_Table = new javax.swing.JTable();
         new_item = new javax.swing.JButton();
         new_item.addActionListener(handler);
         del_item = new javax.swing.JButton();
         del_item.addActionListener(handler);
+        num = new javax.swing.JTextField();
+        cst = new javax.swing.JTextField();
+        cst.addActionListener(handler);
+        date = new javax.swing.JTextField();
+        total = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         load_file = new javax.swing.JMenuItem();
@@ -103,14 +105,6 @@ public class invoice extends javax.swing.JFrame {
 
         jLabel5.setText("total");
 
-        num.setText("jLabel6");
-
-        cst.setText("jLabel7");
-
-        date.setText("jLabel8");
-
-        total.setText("jLabel9");
-
         item_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -119,15 +113,16 @@ public class invoice extends javax.swing.JFrame {
 
             }
         ));
+        item_Table.setCellSelectionEnabled(true);
         item_Table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        item_Table.setSelectionBackground(new java.awt.Color(51, 0, 255));
-        item_Table.setSelectionForeground(new java.awt.Color(0, 0, 255));
+        item_Table.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        item_Table.setSelectionForeground(new java.awt.Color(51, 51, 51));
         item_Table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         item_Table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         item_Table.setShowGrid(true);
         jScrollPane2.setViewportView(item_Table);
 
-        new_item.setText("new item");
+        new_item.setText("save");
         new_item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 new_itemActionPerformed(evt);
@@ -141,6 +136,21 @@ public class invoice extends javax.swing.JFrame {
                 del_itemActionPerformed(evt);
             }
         });
+
+        num.setEditable(false);
+        num.setText("jTextField1");
+        num.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numActionPerformed(evt);
+            }
+        });
+
+        cst.setText("c_n");
+
+        date.setText("date");
+
+        total.setEditable(false);
+        total.setText("total");
 
         jMenu1.setText("File");
 
@@ -165,63 +175,73 @@ public class invoice extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cs)
+                                    .addComponent(nn)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(9, 9, 9)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel5))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(26, 26, 26)
+                                        .addComponent(num, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(139, 139, 139))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(32, 32, 32)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(cst, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                                                .addComponent(date))))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addComponent(new_inv)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(del_inv)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cs)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(nn))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(num, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(cst, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                                .addComponent(total, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(del_inv)
+                        .addGap(89, 89, 89)
                         .addComponent(new_item)
-                        .addGap(38, 38, 38)
-                        .addComponent(del_item))))
+                        .addGap(18, 18, 18)
+                        .addComponent(del_item)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nn)
+                            .addComponent(num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cs, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cst, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(del_inv)
                     .addComponent(new_inv)
                     .addComponent(new_item)
                     .addComponent(del_item))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nn)
-                    .addComponent(num))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cs, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cst))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(date)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(total))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(241, 241, 241))
+                .addGap(0, 224, Short.MAX_VALUE))
         );
 
         pack();
@@ -238,6 +258,10 @@ public class invoice extends javax.swing.JFrame {
     private void save_fileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save_fileActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_save_fileActionPerformed
+
+    private void numActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numActionPerformed
 
     /**
      * @param args the command line arguments
@@ -276,8 +300,8 @@ public class invoice extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cs;
-    private javax.swing.JLabel cst;
-    private javax.swing.JLabel date;
+    private javax.swing.JTextField cst;
+    private javax.swing.JTextField date;
     private javax.swing.JButton del_inv;
     private javax.swing.JButton del_item;
     private javax.swing.JTable invoice_Table;
@@ -292,9 +316,9 @@ public class invoice extends javax.swing.JFrame {
     private javax.swing.JButton new_inv;
     private javax.swing.JButton new_item;
     private javax.swing.JLabel nn;
-    private javax.swing.JLabel num;
+    private javax.swing.JTextField num;
     private javax.swing.JMenuItem save_file;
-    private javax.swing.JLabel total;
+    private javax.swing.JTextField total;
     // End of variables declaration//GEN-END:variables
 private invoice_controller handler=new invoice_controller(this);
 private ArrayList <Invoice_data> invoicelist;
@@ -327,33 +351,32 @@ private Invoice_Tablemodel invoicemodel;
         return item_Table;
     }
 
-    public JLabel getCst() {
+    public JTextField getCst() {
         return cst;
     }
 
-    public JLabel getDate() {
+    public JTextField getDate() {
         return date;
     }
 
-    public JLabel getNum() {
+    public JTextField getNum() {
         return num;
     }
 
-    public JLabel getTotal() {
+    public JTextField getTotal() {
         return total;
     }
 
+    
+ 
     public Invoice_Tablemodel getinvoiceTablemodel() {
         return invoicemodel;
     }
 
-   
-
-    public void setTotal(JLabel total) {
+    public void setTotal(JTextField total) {
         this.total = total;
     }
-    
-    
+
 
     public void setInvoicelist(ArrayList<Invoice_data> invoicelist) {
         this.invoicelist = invoicelist;

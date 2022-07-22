@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class Invoice_Tablemodel extends AbstractTableModel{
     private ArrayList <Invoice_data> data;
-   private String[] cols={"invoice_id","cstoer","date","total"};
+   private String[] cols={"invoice_id","date","cstoer","total"};
   
           public  Invoice_Tablemodel(ArrayList <Invoice_data> data)
   
@@ -39,14 +39,22 @@ public class Invoice_Tablemodel extends AbstractTableModel{
    switch(columnIndex){
        case  0:
                return invd.getNum();
-       case  1:
-               return invd.getCustomer();
-                case  2:
+               
+                  case  1:
                     //return invd.getDat();
                     LocalDate x = invd.getDat();
                    x.format(DateTimeFormatter.ofPattern("dd-YYYY"));
             return x.format(DateTimeFormatter.ofPattern("dd-MM-YYYY"));
-                case 3: return invd.total();
+            
+            
+       case  2:
+               return invd.getCustomer();
+               
+             
+            
+                case 3:
+                    
+                    return invd.total();
                
             }
    return "";
