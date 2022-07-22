@@ -71,7 +71,7 @@ import view.invoice;
                 deleteinv();
                 break;
 
-            case "new item":
+            case "save":
               
                 new_item();
                 break;
@@ -146,6 +146,7 @@ import view.invoice;
        } }
 
     private void new_item() {
+        
         ic= new create_item(frame);
         ic.setVisible(true);// throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -179,21 +180,21 @@ import view.invoice;
             try {
                 List < String > invoiceLines = Files.lines(invoicepath).collect(Collectors.toList());
                  invoicelist = new ArrayList < > ();
-Date date=new Date();
-                for (String invoiceline: invoiceLines) {
-                    String[] line = invoiceline.split(",");
+                 Date date=new Date();
+                for (String invoiceheader: invoiceLines) {
+                    String[] line = invoiceheader.split(",");
                     //  System.out.println("lll"+line.length);
                     int invoice_id = Integer.parseInt(line[0].trim());
-                    c_name= line[1];
-                     System.out.println("daaaaaaa"+line[2].trim());
+                    c_name= line[2].trim();
+                     System.out.println("cna"+line[2].trim());
                     
 
-LocalDate date1= LocalDate.parse(line[2].trim(), format);
+LocalDate date1= LocalDate.parse(line[1].trim(), format);
                      
              // date1=StringToDate(line[2]);
                     System.out.println("da"+date1);
                    
-                    Invoice_data invdata = new Invoice_data(invoice_id, line[1],date1);
+                    Invoice_data invdata = new Invoice_data(invoice_id, date1,c_name);
                     invoicelist.add(invdata);
                 }
             } catch (IOException ex) {
@@ -262,9 +263,13 @@ LocalDate date1= LocalDate.parse(line[2].trim(), format);
              String in_data="";
              String it_data="";
           
-            
+       
             for(Invoice_data invoices_data: invoices)
             {
+            //    if(frame.getCst().)
+         //   invoices_data.setCustomer( frame.getCst().getText());
+          //  LocalDate dd=LocalDate.parse(frame.getDate().getText(), format);
+          //  invoices_data.setDat(dd);
                     in_data+=invoices_data.toString();
            in_data+="\n";
            
@@ -291,26 +296,29 @@ LocalDate date1= LocalDate.parse(line[2].trim(), format);
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        
-           int selected_row=frame.getinvoice_Table().getSelectedRow();
+         int selected_row=frame.getinvoice_Table().getSelectedRow();
          if (selected_row != -1) {
+             
      
        ArrayList<Items>  ite_line=frame.getInvoicelist().get(selected_row).getitl();
        frame.getitem_Table().setModel(new Item_Tablemodel(ite_line));
         frame.setInvoiceilist(ite_line);
-     String cn=  frame.getInvoicelist().get(selected_row).getCustomer();
+  
+          String cn=  frame.getInvoicelist().get(selected_row).getCustomer();
     int no=  frame.getInvoicelist().get(selected_row).getNum();
   LocalDate da=  frame.getInvoicelist().get(selected_row).getDat();
   // String formattedDate = String.format("%1$tb %1$te, %1$tY %1$tI:%1$tM %1$Tp", da);
 Double t=frame.getInvoicelist().get(selected_row).total();
       //  System.out.println(cn);//  throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-      frame.getCst().setText(cn);
+ frame.getCst().setText(cn);
       frame.getNum().setText(String.valueOf(no));
       frame.getDate().setText(""+da.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
       frame.getTotal().setText(String.valueOf(t));
-         }
-    }
-
+   
+            frame.getInvoicelist().get(selected_row).setCustomer(frame.getCst().getText());
+         //   frame.getInvoicelist().get(selected_row).setDat(LocalDate.parse(frame.getDate().getText(), format));};
+    
+}}
   /*  public static Date StringToDate(String d) throws ParseException {
       //Instantiating the SimpleDateFormat class
       SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -344,7 +352,7 @@ Double t=frame.getInvoicelist().get(selected_row).total();
         }
         invoice_n++;
            System.out.println("innnnv1:::"+invoice_n);
-        Invoice_data new_record = new Invoice_data(invoice_n, C_name, date1);
+        Invoice_data new_record = new Invoice_data(invoice_n,  date1,C_name);
          System.out.println("innnnv2::"+invoice_n);
         frame.getInvoicelist().add(new_record);
        frame.getinvoiceTablemodel().fireTableDataChanged();
