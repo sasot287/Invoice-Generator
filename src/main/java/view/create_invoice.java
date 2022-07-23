@@ -26,7 +26,7 @@ public class create_invoice extends JDialog{
     public create_invoice(invoice frame) {
         customerlabel = new JLabel("Customer Name:");
         customer = new JTextField(30);
-        invoiceDatelabel = new JLabel("Invoice Date:");
+        invoiceDatelabel = new JLabel("Invoice Date: 'dd-mm-yyyy");
         invoiceDate = new JTextField(20);
         ok = new JButton("OK");
         cancel = new JButton("Cancel");
