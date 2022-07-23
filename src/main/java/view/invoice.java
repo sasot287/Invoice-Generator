@@ -122,7 +122,7 @@ public class invoice extends javax.swing.JFrame {
         item_Table.setShowGrid(true);
         jScrollPane2.setViewportView(item_Table);
 
-        new_item.setText("add item");
+        new_item.setText("new item");
         new_item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 new_itemActionPerformed(evt);

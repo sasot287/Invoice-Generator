@@ -71,7 +71,7 @@ import view.invoice;
                 deleteinv();
                 break;
 
-            case "save":
+            case "new item":
               
                 new_item();
                 break;
@@ -246,14 +246,13 @@ LocalDate date1= LocalDate.parse(line[1].trim(), format);
   
 
     private void save_file() {
-      //  System.out.println("klkllklklklll");
-       ArrayList<Invoice_data> invoices = frame.getInvoicelist();
+
         String path;
-        try{
+      try{
+         ArrayList<Invoice_data> invoices = frame.getInvoicelist();
+         ArrayList<Items> invoices_ite = frame.getInvoiceilist();
         JFileChooser fc = new JFileChooser();
         int result = fc.showSaveDialog(frame);
-       
-             
         if (result == fc.APPROVE_OPTION) {
        
           File invoicefile=fc.getSelectedFile();
@@ -266,18 +265,15 @@ LocalDate date1= LocalDate.parse(line[1].trim(), format);
        
             for(Invoice_data invoices_data: invoices)
             {
-            //    if(frame.getCst().)
-         //   invoices_data.setCustomer( frame.getCst().getText());
-          //  LocalDate dd=LocalDate.parse(frame.getDate().getText(), format);
-          //  invoices_data.setDat(dd);
+          
                     in_data+=invoices_data.toString();
            in_data+="\n";
            
             for(Items invl:invoices_data.getitl())
             {it_data+=invl.toString();
             it_data+="\n";
-      ///      // System.out.print("inn"+line_data);
             } }
+            System.out.println("in"+in_data);
           in_data=  in_data.substring(0, in_data.length()-1);
            it_data= it_data.substring(0, it_data.length()-1);
             result=fc.showSaveDialog(frame);
@@ -289,10 +285,17 @@ LocalDate date1= LocalDate.parse(line[1].trim(), format);
             detailfilewriter.close(); 
         }
         }
+             catch(NullPointerException e)    
+             { JOptionPane.showMessageDialog(frame, "insert voices and its Items first", "insert voices and its ite first", JOptionPane.ERROR_MESSAGE);}
+
+        
         catch(IOException e)
         {e.printStackTrace();}
+      catch(Exception e)
+        {JOptionPane.showMessageDialog(frame, "insert voices and its Items first", "insert voices and its ite first", JOptionPane.ERROR_MESSAGE);}
+      
 // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    JOptionPane.showMessageDialog(frame, "save completed"); }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
@@ -328,8 +331,7 @@ Double t=frame.getInvoicelist().get(selected_row).total();
      return date;}*/
    
     private void create_invoice_ok() {
-      //  throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-      System.out.println("inside iiiii create_invoice_ok()");
+
    ci.setVisible(false);
       
         String C_name = ci.getCustomer().getText();
@@ -337,27 +339,36 @@ Double t=frame.getInvoicelist().get(selected_row).total();
         String invoice_date = ci.getInvoiceDate().getText();
           System.out.println("print"+C_name+invoice_date);
   LocalDate date1= LocalDate.parse(invoice_date, format);
-
+Date date= new Date();
         int invoice_n = 0;
-       /* try {
+      try {
         date=df.parse(invoice_date);}
         catch (ParseException ex) {
             JOptionPane.showMessageDialog(frame, "", "Invalid date format", JOptionPane.ERROR_MESSAGE);
-        }*/
+        }
+      
+      
+        if(frame.getInvoicelist()!= null){
         for (Invoice_data invoice : frame.getInvoicelist()) {
+           
             if (invoice.getNum() > invoice_n) {
                 invoice_n = invoice.getNum();
             }
-           
-        }
+           // frame.setInvoiceilist(invoicelinelist);
+            } 
         invoice_n++;
-           System.out.println("innnnv1:::"+invoice_n);
         Invoice_data new_record = new Invoice_data(invoice_n,  date1,C_name);
-         System.out.println("innnnv2::"+invoice_n);
-        frame.getInvoicelist().add(new_record);
+        frame.getInvoicelist().add(new_record);}
+        else
+        {ArrayList<Invoice_data> newinvoice=new ArrayList<>();
+        Invoice_data new_record = new Invoice_data(invoice_n,  date1,C_name);
+        newinvoice.add(new_record);
+        frame.setInvoicelist(newinvoice);}
+    
        frame.getinvoiceTablemodel().fireTableDataChanged();
         ci.dispose();
         ci = null;}
+    
     
     private void create_invoice_cancel() {
         ci.setVisible(false);
