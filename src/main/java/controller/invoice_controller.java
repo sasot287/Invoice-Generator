@@ -340,14 +340,12 @@ Double t=frame.getInvoicelist().get(selected_row).total();
           System.out.println("print"+C_name+invoice_date);
   LocalDate date1= LocalDate.parse(invoice_date, format);
 Date date= new Date();
-        int invoice_n = 0;
+        int invoice_n = 1;
       try {
         date=df.parse(invoice_date);}
         catch (ParseException ex) {
             JOptionPane.showMessageDialog(frame, "", "Invalid date format", JOptionPane.ERROR_MESSAGE);
         }
-      
-      
         if(frame.getInvoicelist()!= null){
         for (Invoice_data invoice : frame.getInvoicelist()) {
            
@@ -358,18 +356,21 @@ Date date= new Date();
             } 
         invoice_n++;
         Invoice_data new_record = new Invoice_data(invoice_n,  date1,C_name);
-        frame.getInvoicelist().add(new_record);}
-        else
+        frame.getInvoicelist().add(new_record);
+       
+       /* else
         {ArrayList<Invoice_data> newinvoice=new ArrayList<>();
         Invoice_data new_record = new Invoice_data(invoice_n,  date1,C_name);
         newinvoice.add(new_record);
-        frame.setInvoicelist(newinvoice);}
+        frame.setInvoicelist(newinvoice);}*/
     
        frame.getinvoiceTablemodel().fireTableDataChanged();
         ci.dispose();
-        ci = null;}
+        ci = null;
     
+    }
     
+    }
     private void create_invoice_cancel() {
         ci.setVisible(false);
         ci = null;
